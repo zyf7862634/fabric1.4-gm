@@ -52,10 +52,10 @@ func NewWithParams(securityLevel int, hashFamily string, keyStore bccsp.KeyStore
 	// of the following call fails.
 
 	// Set the Encryptors
-	swbccsp.AddWrapper(reflect.TypeOf(&sm4PrivateKey{}), &sm4cbcpkcs7Encryptor{}) // sm4 加密
+	swbccsp.AddWrapper(reflect.TypeOf(&sm4PrivateKey{}), &sm4Encryptor{}) // sm4 加密
 
 	// Set the Decryptors
-	swbccsp.AddWrapper(reflect.TypeOf(&sm4PrivateKey{}), &sm4cbcpkcs7Decryptor{}) // sm4 解密
+	swbccsp.AddWrapper(reflect.TypeOf(&sm4PrivateKey{}), &sm4Decryptor{}) // sm4 解密
 
 	// Set the Signers
 	swbccsp.AddWrapper(reflect.TypeOf(&sm2PrivateKey{}), &sm2Signer{}) // sm2 国密签名
