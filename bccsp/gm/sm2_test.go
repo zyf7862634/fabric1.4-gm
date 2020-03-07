@@ -140,7 +140,7 @@ func TestSm2PrivateKey(t *testing.T) {
 	pk, err := k.PublicKey()
 	assert.NoError(t, err)
 	assert.NotNil(t, pk)
-	ecdsaPK, ok := pk.(*ecdsaPublicKey)
+	ecdsaPK, ok := pk.(*sm2PublicKey)
 	assert.True(t, ok)
 	assert.Equal(t, &lowLevelKey.PublicKey, ecdsaPK.pubKey)
 }
