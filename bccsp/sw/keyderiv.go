@@ -153,3 +153,10 @@ func (kd *aesPrivateKeyKeyDeriver) KeyDeriv(k bccsp.Key, opts bccsp.KeyDerivOpts
 		return nil, fmt.Errorf("Unsupported 'KeyDerivOpts' provided [%v]", opts)
 	}
 }
+
+// 定义国密 Key的驱动，实现 KeyDeriver接口
+type sm2PublicKeyKeyDeriver struct{}
+
+func (kd *sm2PublicKeyKeyDeriver) KeyDeriv(k bccsp.Key, opts bccsp.KeyDerivOpts) (dk bccsp.Key, err error) {
+	return nil, errors.New("Not implemented gm KeyDeriver Impl have error")
+}

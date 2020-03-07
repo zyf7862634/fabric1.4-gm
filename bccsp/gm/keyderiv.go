@@ -22,8 +22,8 @@ import (
 )
 
 // 定义国密 Key的驱动，实现 KeyDeriver接口
-type smPublicKeyKeyDeriver struct{}
+type sm2PublicKeyKeyDeriver struct{}
 
-func (kd *smPublicKeyKeyDeriver) KeyDeriv(k bccsp.Key, opts bccsp.KeyDerivOpts) (dk bccsp.Key, err error) {
+func (kd *sm2PublicKeyKeyDeriver) KeyDeriv(k bccsp.Key, opts bccsp.KeyDerivOpts) (dk bccsp.Key, err error) {
 	return nil, errors.New("Not implemented gm KeyDeriver Impl have error")
 }
