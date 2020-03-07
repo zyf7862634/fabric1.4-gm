@@ -19,9 +19,9 @@ package factory
 // returns a new instance every time
 func GetDefaultOpts() *FactoryOpts {
 	return &FactoryOpts{
-		ProviderName: "SW",
+		ProviderName: "GM",
 		SwOpts: &SwOpts{
-			HashFamily: "SHA2",
+			HashFamily: "GMSM3", // 可追溯到gm/conf.go文件，可以发现没用用到
 			SecLevel:   256,
 
 			Ephemeral: true,
