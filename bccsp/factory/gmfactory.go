@@ -58,6 +58,7 @@ func (f *GMFactory) Get(config *FactoryOpts) (bccsp.BCCSP, error) {
 		// Default to ephemeral key store
 		ks = gm.NewDummyKeyStore()
 	}
-
+	// TODO: 本方法中选择了使用gm包中的NewWithParams方法，所以Get到的bccsp对象全是gm包中的属性内容，导致后边的选择都使用了gm包中的方法
+	// TODO: 如果需要gm和sw同时存在可以在这里改为sw，或者将factory包中的内容改回到使用SWFactory对象
 	return gm.NewWithParams(gmOpts.SecLevel, gmOpts.HashFamily, ks)
 }
