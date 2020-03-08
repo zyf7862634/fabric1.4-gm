@@ -46,6 +46,26 @@ func TestAESOpts(t *testing.T) {
 	assert.False(t, opts.Ephemeral())
 }
 
+func TestSM4Opts(t *testing.T) {
+	test := func(ephemeral bool) {
+		for _, opts := range []KeyGenOpts{
+			&SM4KeyGenOpts{ephemeral},
+		} {
+			expectedAlgorithm := reflect.TypeOf(opts).String()[7:10]
+			assert.Equal(t, expectedAlgorithm, opts.Algorithm())
+			assert.Equal(t, ephemeral, opts.Ephemeral())
+		}
+	}
+	test(true)
+	test(false)
+
+	opts := &SM4KeyGenOpts{true}
+	assert.Equal(t, "SM4", opts.Algorithm())
+	assert.True(t, opts.Ephemeral())
+	opts.Temporary = false
+	assert.False(t, opts.Ephemeral())
+}
+
 func TestRSAOpts(t *testing.T) {
 	test := func(ephemeral bool) {
 		for _, opts := range []KeyGenOpts{
@@ -97,6 +117,40 @@ func TestECDSAOpts(t *testing.T) {
 	assert.False(t, opts.Ephemeral())
 	assert.Equal(t, "ECDSA_RERAND", opts.Algorithm())
 	assert.Empty(t, opts.ExpansionValue())
+}
+
+func TestSM2Opts(t *testing.T) {
+	test := func(ephemeral bool) {
+		for _, opts := range []KeyGenOpts{
+			&SM2KeyGenOpts{ephemeral},
+		} {
+			expectedAlgorithm := reflect.TypeOf(opts).String()[7:10]
+			assert.Equal(t, expectedAlgorithm, opts.Algorithm())
+			assert.Equal(t, ephemeral, opts.Ephemeral())
+		}
+	}
+	test(true)
+	test(false)
+
+	test = func(ephemeral bool) {
+		for _, opts := range []KeyGenOpts{
+			&SM2KeyGenOpts{ephemeral},
+			&SM2PrivateKeyImportOpts{ephemeral},
+			&SM2PublicKeyImportOpts{ephemeral},
+		} {
+			assert.Equal(t, "SM2", opts.Algorithm())
+			assert.Equal(t, ephemeral, opts.Ephemeral())
+		}
+	}
+	test(true)
+	test(false)
+
+	//opts := &ECDSAReRandKeyOpts{Temporary: true}
+	//assert.True(t, opts.Ephemeral())
+	//opts.Temporary = false
+	//assert.False(t, opts.Ephemeral())
+	//assert.Equal(t, "ECDSA_RERAND", opts.Algorithm())
+	//assert.Empty(t, opts.ExpansionValue())
 }
 
 func TestHashOpts(t *testing.T) {

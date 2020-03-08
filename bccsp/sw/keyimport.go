@@ -19,7 +19,6 @@ package sw
 import (
 	"crypto/ecdsa"
 	"crypto/rsa"
-	"crypto/x509"
 	"errors"
 	"fmt"
 	"github.com/tjfoc/gmsm/sm2"
@@ -221,7 +220,7 @@ type x509PublicKeyImportOptsKeyImporter struct {
 }
 
 func (ki *x509PublicKeyImportOptsKeyImporter) KeyImport(raw interface{}, opts bccsp.KeyImportOpts) (bccsp.Key, error) {
-	x509Cert, ok := raw.(*x509.Certificate)
+	x509Cert, ok := raw.(*sm2.Certificate)
 	if !ok {
 		return nil, errors.New("Invalid raw material. Expected *x509.Certificate.")
 	}

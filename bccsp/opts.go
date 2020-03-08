@@ -309,7 +309,7 @@ type SM2PrivateKeyImportOpts struct {
 
 // Algorithm returns the key importation algorithm identifier (to be used).
 func (opts *SM2PrivateKeyImportOpts) Algorithm() string {
-	return SM4
+	return SM2
 }
 
 // Ephemeral returns true if the key generated has to be ephemeral,
@@ -325,7 +325,7 @@ type SM2PublicKeyImportOpts struct {
 
 // Algorithm returns the key importation algorithm identifier (to be used).
 func (opts *SM2PublicKeyImportOpts) Algorithm() string {
-	return SM4
+	return SM2
 }
 
 // Ephemeral returns true if the key generated has to be ephemeral,
