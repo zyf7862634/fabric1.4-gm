@@ -188,17 +188,17 @@ func vendorDependencies(pkg string, files Sources) {
 
 	// --------------------------------------------------------------------------------------
 	// First, add anything already vendored somewhere within our primary package to the
-	// "exclusions".  For a package "foo/bar/baz", we want to ensure we don't auto-vendor
+	// "exclusions".  For a package "foo/bar/baz", we want to ensure we don't auto-vendor000
 	// any of the following:
 	//
-	//     [ "foo/vendor", "foo/bar/vendor", "foo/bar/baz/vendor"]
+	//     [ "foo/vendor000", "foo/bar/vendor000", "foo/bar/baz/vendor000"]
 	//
 	// and we therefore employ a recursive path building process to form this list
 	// --------------------------------------------------------------------------------------
 	prev := filepath.Join("src")
 	for _, element := range elements {
 		curr := filepath.Join(prev, element)
-		vendor := filepath.Join(curr, "vendor")
+		vendor := filepath.Join(curr, "vendor000")
 		exclusions = append(exclusions, vendor)
 		prev = curr
 	}
@@ -214,9 +214,9 @@ func vendorDependencies(pkg string, files Sources) {
 	// --------------------------------------------------------------------------------------
 	// Now start a parallel process which checks each file in files to see if it matches
 	// any of the excluded patterns.  Any that match are renamed such that they are vendored
-	// under src/$pkg/vendor.
+	// under src/$pkg/vendor000.
 	// --------------------------------------------------------------------------------------
-	vendorPath := filepath.Join("src", pkg, "vendor")
+	vendorPath := filepath.Join("src", pkg, "vendor000")
 	for i, file := range files {
 		go func(i int, file SourceDescriptor) {
 			excluded := false
@@ -405,7 +405,7 @@ func (goPlatform *Platform) GetDeploymentPayload(path string) ([]byte, error) {
 	}
 
 	// --------------------------------------------------------------------------------------
-	// Remap non-package dependencies to package/vendor
+	// Remap non-package dependencies to package/vendor000
 	// --------------------------------------------------------------------------------------
 	vendorDependencies(code.Pkg, files)
 

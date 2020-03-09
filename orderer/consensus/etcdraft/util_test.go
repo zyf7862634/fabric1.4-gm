@@ -30,9 +30,9 @@ import (
 	"github.com/onsi/gomega"
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
-	"go.etcd.io/etcd/raft/raftpb"
-	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
+	"github.com/hyperledger/fabric/vendor000/go.etcd.io/etcd/raft/raftpb"
+	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap"
+	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
 )
 
 func TestCheckConfigMetadata(t *testing.T) {

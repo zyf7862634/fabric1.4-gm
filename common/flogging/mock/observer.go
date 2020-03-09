@@ -5,7 +5,7 @@ import (
 	sync "sync"
 
 	flogging "github.com/hyperledger/fabric/common/flogging"
-	zapcore "go.uber.org/zap/zapcore"
+	zapcore "github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
 )
 
 type Observer struct {

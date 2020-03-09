@@ -16,12 +16,12 @@ import (
 
 	"github.com/hyperledger/fabric/common/flogging"
 	"github.com/pkg/errors"
-	"go.etcd.io/etcd/etcdserver/api/snap"
-	"go.etcd.io/etcd/pkg/fileutil"
-	"go.etcd.io/etcd/raft"
-	"go.etcd.io/etcd/raft/raftpb"
-	"go.etcd.io/etcd/wal"
-	"go.etcd.io/etcd/wal/walpb"
+	"github.com/hyperledger/fabric/vendor000/go.etcd.io/etcd/etcdserver/api/snap"
+	"github.com/hyperledger/fabric/vendor000/go.etcd.io/etcd/pkg/fileutil"
+	"github.com/hyperledger/fabric/vendor000/go.etcd.io/etcd/raft"
+	"github.com/hyperledger/fabric/vendor000/go.etcd.io/etcd/raft/raftpb"
+	"github.com/hyperledger/fabric/vendor000/go.etcd.io/etcd/wal"
+	"github.com/hyperledger/fabric/vendor000/go.etcd.io/etcd/wal/walpb"
 )
 
 // MaxSnapshotFiles defines max number of etcd/raft snapshot files to retain

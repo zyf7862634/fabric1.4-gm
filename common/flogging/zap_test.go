@@ -16,9 +16,9 @@ import (
 	"github.com/hyperledger/fabric/common/flogging/fabenc"
 	"github.com/hyperledger/fabric/common/flogging/mock"
 	"github.com/stretchr/testify/assert"
-	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
-	"go.uber.org/zap/zaptest/observer"
+	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap"
+	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
+	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zaptest/observer"
 	"google.golang.org/grpc/grpclog"
 )
 

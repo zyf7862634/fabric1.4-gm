@@ -10,7 +10,7 @@ import (
 	"sync"
 
 	"github.com/hyperledger/fabric/common/flogging"
-	"go.uber.org/zap/zapcore"
+	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
 )
 
 // Logger names for logger initialization.

@@ -17,7 +17,7 @@ import (
 	"github.com/hyperledger/fabric/gossip/util"
 	proto "github.com/hyperledger/fabric/protos/gossip"
 	"github.com/pkg/errors"
-	"go.uber.org/zap/zapcore"
+	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
 )
 
 // Constants go here.

@@ -33,8 +33,8 @@ import (
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
-	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
+	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap"
+	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
 	"google.golang.org/grpc"
 )
 

@@ -10,9 +10,9 @@ import (
 	"fmt"
 	"strings"
 
-	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
-	"go.uber.org/zap/zapgrpc"
+	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap"
+	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
+	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapgrpc"
 )
 
 // NewZapLogger creates a zap logger around a new zap.Core. The core will use

@@ -11,7 +11,7 @@ import (
 
 	. "github.com/onsi/gomega"
 	"github.com/onsi/gomega/gbytes"
-	"go.uber.org/zap/zapcore"
+	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
 )
 
 func TestLoggerRecorder(t *testing.T) {

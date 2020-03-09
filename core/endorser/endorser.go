@@ -28,7 +28,7 @@ import (
 	"github.com/hyperledger/fabric/protos/transientstore"
 	putils "github.com/hyperledger/fabric/protos/utils"
 	"github.com/pkg/errors"
-	"go.uber.org/zap"
+	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap"
 )
 
 var endorserLogger = flogging.MustGetLogger("endorser")

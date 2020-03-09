@@ -11,8 +11,8 @@ import (
 	"time"
 
 	zaplogfmt "github.com/sykesm/zap-logfmt"
-	"go.uber.org/zap/buffer"
-	"go.uber.org/zap/zapcore"
+	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/buffer"
+	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
 )
 
 // A FormatEncoder is a zapcore.Encoder that formats log records according to a

@@ -505,7 +505,7 @@ file system path `.../organization/magnetocorp/contract` via the
 ```yaml
 volumes:
     - ...
-    - ./../../../../organization/magnetocorp:/opt/gopath/src/github.com/
+    - github.com
     - ...
 ```
 

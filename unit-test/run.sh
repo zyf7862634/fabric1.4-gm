@@ -30,7 +30,7 @@ pkcs11_packages=(
 # obtain packages changed since some git refspec
 packages_diff() {
     git -C "${GOPATH}/src/github.com/hyperledger/fabric" diff --no-commit-id --name-only -r "${1:-HEAD}" |
-        grep '.go$' | grep -Ev '^vendor/|^build/' | \
+        grep '.go$' | grep -Ev '^vendor000/|^build/' | \
         sed 's%/[^/]*$%/%' | sort -u | \
         awk '{print "github.com/hyperledger/fabric/"$1"..."}'
 }

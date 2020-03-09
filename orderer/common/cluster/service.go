@@ -15,7 +15,7 @@ import (
 	"github.com/hyperledger/fabric/common/util"
 	"github.com/hyperledger/fabric/core/comm"
 	"github.com/hyperledger/fabric/protos/orderer"
-	"go.uber.org/zap"
+	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap"
 	"google.golang.org/grpc"
 )
 

@@ -16,7 +16,7 @@ import (
 	"sync"
 	"time"
 
-	"code.cloudfoundry.org/clock/fakeclock"
+	"github.com/hyperledger/fabric/vendor000/code.cloudfoundry.org/clock/fakeclock"
 	"github.com/golang/protobuf/proto"
 	"github.com/hyperledger/fabric/bccsp/factory"
 	"github.com/hyperledger/fabric/common/crypto/tlsgen"
@@ -35,9 +35,9 @@ import (
 	. "github.com/onsi/gomega"
 	"github.com/onsi/gomega/types"
 	"github.com/pkg/errors"
-	"go.etcd.io/etcd/raft"
-	"go.etcd.io/etcd/raft/raftpb"
-	"go.uber.org/zap"
+	"github.com/hyperledger/fabric/vendor000/go.etcd.io/etcd/raft"
+	"github.com/hyperledger/fabric/vendor000/go.etcd.io/etcd/raft/raftpb"
+	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap"
 )
 
 const (

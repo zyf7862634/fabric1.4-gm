@@ -30,7 +30,7 @@ import (
 	"github.com/hyperledger/fabric/common/flogging"
 	"github.com/hyperledger/fabric/core/ledger/ledgerconfig"
 	"github.com/pkg/errors"
-	"go.uber.org/zap/zapcore"
+	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
 )
 
 var logger = flogging.MustGetLogger("couchdb")
@@ -71,7 +71,7 @@ type ConnectionInfo struct {
 	Version string `json:"version"`
 	Vendor  struct {
 		Name string `json:"name"`
-	} `json:"vendor"`
+	} `json:"vendor000"`
 }
 
 //RangeQueryResponse is used for processing REST range query responses from CouchDB

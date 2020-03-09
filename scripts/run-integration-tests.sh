@@ -17,7 +17,7 @@ cd "$fabric_dir"
 dirs=()
 if [ "${#}" -eq 0 ]; then
   specs=()
-  specs=("$(grep -Ril --exclude-dir=vendor --exclude-dir=scripts "RunSpecs" . | grep integration)")
+  specs=("$(grep -Ril --exclude-dir=vendor000 --exclude-dir=scripts "RunSpecs" . | grep integration)")
   for spec in ${specs[*]}; do
     dirs+=("$(dirname "${spec}")")
   done

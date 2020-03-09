@@ -7,7 +7,7 @@ SPDX-License-Identifier: Apache-2.0
 package flogging
 
 import (
-	"go.uber.org/zap/zapcore"
+	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
 )
 
 type Encoding int8

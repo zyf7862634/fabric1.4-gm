@@ -19,7 +19,7 @@ import (
 	"github.com/hyperledger/fabric/common/flogging"
 	"github.com/hyperledger/fabric/protos/msp"
 	"github.com/pkg/errors"
-	"go.uber.org/zap/zapcore"
+	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
 )
 
 var mspIdentityLogger = flogging.MustGetLogger("msp.identity")

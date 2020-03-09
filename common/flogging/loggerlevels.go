@@ -14,7 +14,7 @@ import (
 	"sync"
 
 	"github.com/pkg/errors"
-	"go.uber.org/zap/zapcore"
+	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
 )
 
 // LoggerLevels tracks the logging level of named loggers.
