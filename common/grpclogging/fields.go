@@ -9,8 +9,8 @@ package grpclogging
 import (
 	"github.com/gogo/protobuf/proto"
 	"github.com/golang/protobuf/jsonpb"
-	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap"
-	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
 
 type protoMarshaler struct {

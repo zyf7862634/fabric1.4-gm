@@ -13,7 +13,7 @@ import (
 
 	"github.com/Shopify/sarama"
 	"github.com/hyperledger/fabric/common/flogging"
-	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap"
+	"go.uber.org/zap"
 )
 
 var logger = flogging.MustGetLogger("orderer.consensus.kafka")

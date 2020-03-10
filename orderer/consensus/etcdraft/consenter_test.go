@@ -31,8 +31,8 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	"github.com/stretchr/testify/mock"
-	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap"
-	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
 
 var _ = Describe("Consenter", func() {

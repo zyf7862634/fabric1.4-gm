@@ -14,7 +14,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/hyperledger/fabric/vendor000/code.cloudfoundry.org/clock"
+	"code.cloudfoundry.org/clock"
 	"github.com/golang/protobuf/proto"
 	"github.com/hyperledger/fabric/common/configtx"
 	"github.com/hyperledger/fabric/common/flogging"
@@ -25,9 +25,9 @@ import (
 	"github.com/hyperledger/fabric/protos/orderer/etcdraft"
 	"github.com/hyperledger/fabric/protos/utils"
 	"github.com/pkg/errors"
-	"github.com/hyperledger/fabric/vendor000/go.etcd.io/etcd/raft"
-	"github.com/hyperledger/fabric/vendor000/go.etcd.io/etcd/raft/raftpb"
-	"github.com/hyperledger/fabric/vendor000/go.etcd.io/etcd/wal"
+	"go.etcd.io/etcd/raft"
+	"go.etcd.io/etcd/raft/raftpb"
+	"go.etcd.io/etcd/wal"
 )
 
 const (

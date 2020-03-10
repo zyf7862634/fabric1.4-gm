@@ -12,7 +12,7 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/hyperledger/fabric/vendor000/code.cloudfoundry.org/clock"
+	"code.cloudfoundry.org/clock"
 	"github.com/golang/protobuf/proto"
 	"github.com/hyperledger/fabric/common/flogging"
 	"github.com/hyperledger/fabric/common/metrics"
@@ -27,7 +27,7 @@ import (
 	"github.com/hyperledger/fabric/protos/orderer"
 	"github.com/hyperledger/fabric/protos/orderer/etcdraft"
 	"github.com/pkg/errors"
-	"github.com/hyperledger/fabric/vendor000/go.etcd.io/etcd/raft"
+	"go.etcd.io/etcd/raft"
 )
 
 //go:generate mockery -dir . -name InactiveChainRegistry -case underscore -output mocks

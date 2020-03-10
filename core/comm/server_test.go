@@ -9,10 +9,12 @@ package comm_test
 import (
 	"bytes"
 	"context"
-	"crypto/tls"
 	"crypto/x509"
 	"errors"
 	"fmt"
+	"github.com/tjfoc/gmsm/sm2"
+	tls "github.com/tjfoc/gmtls"
+	"github.com/tjfoc/gmtls/gmcredentials"
 	"io"
 	"io/ioutil"
 	"log"
@@ -232,8 +234,8 @@ type testOrg struct {
 }
 
 // return *X509.CertPool for the rootCA of the org
-func (org *testOrg) rootCertPool() *x509.CertPool {
-	certPool := x509.NewCertPool()
+func (org *testOrg) rootCertPool() *sm2.CertPool {
+	certPool := sm2.NewCertPool()
 	certPool.AppendCertsFromPEM(org.rootCA)
 	return certPool
 }
@@ -284,9 +286,9 @@ func (org *testOrg) trustedClients(serverRootCAs [][]byte) []*tls.Config {
 }
 
 // createCertPool creates an x509.CertPool from an array of PEM-encoded certificates
-func createCertPool(rootCAs [][]byte) (*x509.CertPool, error) {
+func createCertPool(rootCAs [][]byte) (*sm2.CertPool, error) {
 
-	certPool := x509.NewCertPool()
+	certPool := sm2.NewCertPool()
 	for _, rootCA := range rootCAs {
 		if !certPool.AppendCertsFromPEM(rootCA) {
 			return nil, errors.New("Failed to load root certificates")
@@ -705,14 +707,14 @@ func TestNewSecureGRPCServer(t *testing.T) {
 	time.Sleep(10 * time.Millisecond)
 
 	// create the client credentials
-	certPool := x509.NewCertPool()
+	certPool := sm2.NewCertPool()
 
 	if !certPool.AppendCertsFromPEM([]byte(selfSignedCertPEM)) {
 
 		t.Fatal("Failed to append certificate to client credentials")
 	}
 
-	creds := credentials.NewClientTLSFromCert(certPool, "")
+	creds := gmcredentials.NewClientTLSFromCert(certPool, "")
 
 	// GRPC client options
 	var dialOptions []grpc.DialOption
@@ -735,7 +737,7 @@ func TestNewSecureGRPCServer(t *testing.T) {
 			t.Parallel()
 			_, err := invokeEmptyCall(testAddress,
 				[]grpc.DialOption{grpc.WithTransportCredentials(
-					credentials.NewTLS(&tls.Config{
+					gmcredentials.NewTLS(&tls.Config{
 						RootCAs:    certPool,
 						MinVersion: tlsVersion,
 						MaxVersion: tlsVersion,
@@ -763,7 +765,7 @@ func TestVerifyCertificateCallback(t *testing.T) {
 	serverKeyPair, err := ca.NewServerCertKeyPair("127.0.0.1")
 	assert.NoError(t, err)
 
-	verifyFunc := func(rawCerts [][]byte, verifiedChains [][]*x509.Certificate) error {
+	verifyFunc := func(rawCerts [][]byte, verifiedChains [][]*sm2.Certificate) error {
 		if bytes.Equal(rawCerts[0], authorizedClientKeyPair.TLSCert.Raw) {
 			return nil
 		}
@@ -774,7 +776,7 @@ func TestVerifyCertificateCallback(t *testing.T) {
 		cert, err := tls.X509KeyPair(clientKeyPair.Cert, clientKeyPair.Key)
 		tlsCfg := &tls.Config{
 			Certificates: []tls.Certificate{cert},
-			RootCAs:      x509.NewCertPool(),
+			RootCAs:      sm2.NewCertPool(),
 		}
 		tlsCfg.RootCAs.AppendCertsFromPEM(ca.CertBytes())
 
@@ -867,7 +869,7 @@ func TestWithSignedRootCertificates(t *testing.T) {
 		t.Fatalf("Failed to load root certificates into pool: %v", err)
 	}
 	// create the client credentials
-	creds := credentials.NewClientTLSFromCert(certPoolServer, "")
+	creds := gmcredentials.NewClientTLSFromCert(certPoolServer, "")
 
 	// GRPC client options
 	var dialOptions []grpc.DialOption
@@ -949,7 +951,7 @@ func TestWithSignedIntermediateCertificates(t *testing.T) {
 		t.Fatalf("Failed to load root certificates into pool: %v", err)
 	}
 	// create the client credentials
-	creds := credentials.NewClientTLSFromCert(certPoolServer, "")
+	creds := gmcredentials.NewClientTLSFromCert(certPoolServer, "")
 
 	// GRPC client options
 	var dialOptions []grpc.DialOption
@@ -968,7 +970,7 @@ func TestWithSignedIntermediateCertificates(t *testing.T) {
 		t.Fatalf("Failed to load root certificates into pool: %v", err)
 	}
 
-	creds = credentials.NewClientTLSFromCert(certPoolCA, "")
+	creds = gmcredentials.NewClientTLSFromCert(certPoolCA, "")
 	var dialOptionsCA []grpc.DialOption
 	dialOptionsCA = append(dialOptionsCA, grpc.WithTransportCredentials(creds))
 
@@ -1015,7 +1017,7 @@ func runMutualAuth(t *testing.T, servers []testServer, trustedClients, unTrusted
 		for j := 0; j < len(trustedClients); j++ {
 			// invoke the EmptyCall service
 			_, err = invokeEmptyCall(srvAddr,
-				[]grpc.DialOption{grpc.WithTransportCredentials(credentials.NewTLS(trustedClients[j]))})
+				[]grpc.DialOption{grpc.WithTransportCredentials(gmcredentials.NewTLS(trustedClients[j]))})
 			// we expect success from trusted clients
 			if err != nil {
 				return err
@@ -1030,7 +1032,7 @@ func runMutualAuth(t *testing.T, servers []testServer, trustedClients, unTrusted
 				srvAddr,
 				[]grpc.DialOption{
 					grpc.WithTransportCredentials(
-						credentials.NewTLS(unTrustedClients[k]))})
+						gmcredentials.NewTLS(unTrustedClients[k]))})
 			// we expect failure from untrusted clients
 			if err != nil {
 				t.Logf("Untrusted client%d was correctly rejected by %s", k, srvAddr)
@@ -1192,7 +1194,7 @@ func TestAppendClientRootCAs(t *testing.T) {
 	for i, clientConfig := range clientConfigs {
 		// invoke the EmptyCall service
 		_, err = invokeEmptyCall(address, []grpc.DialOption{
-			grpc.WithTransportCredentials(credentials.NewTLS(clientConfig))})
+			grpc.WithTransportCredentials(gmcredentials.NewTLS(clientConfig))})
 		// we expect failure as these are currently not trusted clients
 		if err != nil {
 			t.Logf("Untrusted client%d was correctly rejected by %s", i, address)
@@ -1213,7 +1215,7 @@ func TestAppendClientRootCAs(t *testing.T) {
 	for j, clientConfig := range clientConfigs {
 		// invoke the EmptyCall service
 		_, err = invokeEmptyCall(address, []grpc.DialOption{
-			grpc.WithTransportCredentials(credentials.NewTLS(clientConfig))})
+			grpc.WithTransportCredentials(gmcredentials.NewTLS(clientConfig))})
 		// we expect success as these are now trusted clients
 		if err != nil {
 			t.Fatalf("Now trusted client%d failed to connect to %s with error: %s",
@@ -1263,7 +1265,7 @@ func TestRemoveClientRootCAs(t *testing.T) {
 	for i, clientConfig := range clientConfigs {
 		// invoke the EmptyCall service
 		_, err = invokeEmptyCall(address, []grpc.DialOption{
-			grpc.WithTransportCredentials(credentials.NewTLS(clientConfig))})
+			grpc.WithTransportCredentials(gmcredentials.NewTLS(clientConfig))})
 
 		// we expect success as these are trusted clients
 		if err != nil {
@@ -1285,7 +1287,7 @@ func TestRemoveClientRootCAs(t *testing.T) {
 	for j, clientConfig := range clientConfigs {
 		//invoke the EmptyCall service
 		_, err = invokeEmptyCall(address, []grpc.DialOption{
-			grpc.WithTransportCredentials(credentials.NewTLS(clientConfig))})
+			grpc.WithTransportCredentials(gmcredentials.NewTLS(clientConfig))})
 		//we expect failure as these are now untrusted clients
 		if err != nil {
 			t.Logf("Now untrusted client%d was correctly rejected by %s", j, address)
@@ -1429,7 +1431,7 @@ func TestSetClientRootCAs(t *testing.T) {
 	for i, clientConfig := range clientConfigsOrg1Children {
 		// invoke the EmptyCall service
 		_, err = invokeEmptyCall(address, []grpc.DialOption{
-			grpc.WithTransportCredentials(credentials.NewTLS(clientConfig))})
+			grpc.WithTransportCredentials(gmcredentials.NewTLS(clientConfig))})
 
 		// we expect success as these are trusted clients
 		if err != nil {
@@ -1444,7 +1446,7 @@ func TestSetClientRootCAs(t *testing.T) {
 	for j, clientConfig := range clientConfigsOrg2Children {
 		//invoke the EmptyCall service
 		_, err = invokeEmptyCall(address, []grpc.DialOption{
-			grpc.WithTransportCredentials(credentials.NewTLS(clientConfig))})
+			grpc.WithTransportCredentials(gmcredentials.NewTLS(clientConfig))})
 		// we expect failure as these are now untrusted clients
 		if err != nil {
 			t.Logf("Untrusted client%d was correctly rejected by %s", j, address)
@@ -1465,7 +1467,7 @@ func TestSetClientRootCAs(t *testing.T) {
 	for i, clientConfig := range clientConfigsOrg2Children {
 		// invoke the EmptyCall service
 		_, err = invokeEmptyCall(address, []grpc.DialOption{
-			grpc.WithTransportCredentials(credentials.NewTLS(clientConfig))})
+			grpc.WithTransportCredentials(gmcredentials.NewTLS(clientConfig))})
 
 		// we expect success as these are trusted clients
 		if err != nil {
@@ -1480,7 +1482,7 @@ func TestSetClientRootCAs(t *testing.T) {
 	for j, clientConfig := range clientConfigsOrg1Children {
 		//invoke the EmptyCall service
 		_, err = invokeEmptyCall(address, []grpc.DialOption{
-			grpc.WithTransportCredentials(credentials.NewTLS(clientConfig))})
+			grpc.WithTransportCredentials(gmcredentials.NewTLS(clientConfig))})
 		// we expect failure as these are now untrusted clients
 		if err != nil {
 			t.Logf("Untrusted client%d was correctly rejected by %s", j, address)
@@ -1621,13 +1623,13 @@ func TestUpdateTLSCert(t *testing.T) {
 	go srv.Start()
 	defer srv.Stop()
 
-	certPool := x509.NewCertPool()
+	certPool := sm2.NewCertPool()
 	certPool.AppendCertsFromPEM(caCert)
 
 	probeServer := func() error {
 		_, err = invokeEmptyCall(testAddress,
 			[]grpc.DialOption{grpc.WithTransportCredentials(
-				credentials.NewTLS(&tls.Config{
+				gmcredentials.NewTLS(&tls.Config{
 					RootCAs: certPool})),
 				grpc.WithBlock()})
 		return err

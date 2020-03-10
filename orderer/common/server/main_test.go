@@ -45,8 +45,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
-	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap"
-	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
 
 func TestInitializeLogging(t *testing.T) {

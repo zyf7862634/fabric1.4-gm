@@ -15,7 +15,7 @@ function filterExcludedFiles {
   CHECK=`echo "$CHECK" \
 		| grep -v "^\.git/" \
 		| grep -v "^\.build/" \
-		| grep -v "^vendor000/" \
+		| grep -v "^vendor/" \
 		| grep -v "testdata/" \
 		| grep -v "^LICENSE$" \
 		| grep -v "\.png$" \

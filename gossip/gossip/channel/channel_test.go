@@ -30,8 +30,8 @@ import (
 	proto "github.com/hyperledger/fabric/protos/gossip"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
-	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap"
-	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
 
 type msgMutator func(message *proto.Envelope)

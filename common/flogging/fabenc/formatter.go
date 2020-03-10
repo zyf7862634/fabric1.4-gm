@@ -15,7 +15,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
+	"go.uber.org/zap/zapcore"
 )
 
 // formatRegexp is broken into three groups:

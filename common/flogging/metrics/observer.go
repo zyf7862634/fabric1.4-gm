@@ -8,7 +8,7 @@ package metrics
 
 import (
 	"github.com/hyperledger/fabric/common/metrics"
-	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
+	"go.uber.org/zap/zapcore"
 )
 
 var (

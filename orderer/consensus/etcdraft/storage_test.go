@@ -18,11 +18,11 @@ import (
 	"github.com/hyperledger/fabric/common/flogging"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/hyperledger/fabric/vendor000/go.etcd.io/etcd/pkg/fileutil"
-	"github.com/hyperledger/fabric/vendor000/go.etcd.io/etcd/raft"
-	"github.com/hyperledger/fabric/vendor000/go.etcd.io/etcd/raft/raftpb"
-	"github.com/hyperledger/fabric/vendor000/go.etcd.io/etcd/wal"
-	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap"
+	"go.etcd.io/etcd/pkg/fileutil"
+	"go.etcd.io/etcd/raft"
+	"go.etcd.io/etcd/raft/raftpb"
+	"go.etcd.io/etcd/wal"
+	"go.uber.org/zap"
 )
 
 var (

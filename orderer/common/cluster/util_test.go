@@ -36,8 +36,8 @@ import (
 	"github.com/hyperledger/fabric/protos/utils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
-	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap"
-	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
 
 func TestParallelStubActivation(t *testing.T) {

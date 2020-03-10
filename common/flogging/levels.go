@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
+	"go.uber.org/zap/zapcore"
 )
 
 const (

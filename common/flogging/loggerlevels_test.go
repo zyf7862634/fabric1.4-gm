@@ -13,7 +13,7 @@ import (
 
 	"github.com/hyperledger/fabric/common/flogging"
 	"github.com/stretchr/testify/assert"
-	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
+	"go.uber.org/zap/zapcore"
 )
 
 func TestLoggerLevelsActivateSpec(t *testing.T) {

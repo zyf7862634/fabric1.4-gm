@@ -8,9 +8,9 @@ package comm
 
 import (
 	"context"
-	"crypto/tls"
 	"crypto/x509"
 	"fmt"
+	tls "github.com/tjfoc/gmtls"
 	"io/ioutil"
 	"net"
 	"path/filepath"

@@ -12,7 +12,7 @@ import (
 	"github.com/hyperledger/fabric/common/flogging"
 	cb "github.com/hyperledger/fabric/protos/common"
 	"github.com/stretchr/testify/assert"
-	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap"
+	"go.uber.org/zap"
 )
 
 func getSeedBlock() *cb.Block {

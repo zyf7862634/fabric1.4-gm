@@ -17,7 +17,7 @@ import (
 	"sync"
 
 	"github.com/miekg/pkcs11"
-	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
+	"go.uber.org/zap/zapcore"
 )
 
 func loadLib(lib, pin, label string) (*pkcs11.Ctx, uint, *pkcs11.SessionHandle, error) {
@@ -290,21 +290,21 @@ func (csp *impl) generateECKey(curve asn1.ObjectIdentifier, ephemeral bool) (ski
 
 		_, pubCopyerror := p11lib.CopyObject(session, pub, setCKAModifiable)
 		if pubCopyerror != nil {
-			return nil, nil, fmt.Errorf("P11: Public Key copy failed with error [%s] . Please contact your HSM vendor000", pubCopyerror)
+			return nil, nil, fmt.Errorf("P11: Public Key copy failed with error [%s] . Please contact your HSM vendor", pubCopyerror)
 		}
 
 		pubKeyDestroyError := p11lib.DestroyObject(session, pub)
 		if pubKeyDestroyError != nil {
-			return nil, nil, fmt.Errorf("P11: Public Key destroy failed with error [%s]. Please contact your HSM vendor000", pubCopyerror)
+			return nil, nil, fmt.Errorf("P11: Public Key destroy failed with error [%s]. Please contact your HSM vendor", pubCopyerror)
 		}
 
 		_, prvCopyerror := p11lib.CopyObject(session, prv, setCKAModifiable)
 		if prvCopyerror != nil {
-			return nil, nil, fmt.Errorf("P11: Private Key copy failed with error [%s]. Please contact your HSM vendor000", prvCopyerror)
+			return nil, nil, fmt.Errorf("P11: Private Key copy failed with error [%s]. Please contact your HSM vendor", prvCopyerror)
 		}
 		prvKeyDestroyError := p11lib.DestroyObject(session, prv)
 		if pubKeyDestroyError != nil {
-			return nil, nil, fmt.Errorf("P11: Private Key destroy failed with error [%s]. Please contact your HSM vendor000", prvKeyDestroyError)
+			return nil, nil, fmt.Errorf("P11: Private Key destroy failed with error [%s]. Please contact your HSM vendor", prvKeyDestroyError)
 		}
 	}
 

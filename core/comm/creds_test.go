@@ -7,8 +7,8 @@ SPDX-License-Identifier: Apache-2.0
 package comm_test
 
 import (
-	"crypto/tls"
-	"crypto/x509"
+	"github.com/tjfoc/gmsm/sm2"
+	tls "github.com/tjfoc/gmtls"
 	"io/ioutil"
 	"net"
 	"path/filepath"
@@ -27,7 +27,7 @@ func TestCreds(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed to read root certificate: %v", err)
 	}
-	certPool := x509.NewCertPool()
+	certPool := sm2.NewCertPool()
 	ok := certPool.AppendCertsFromPEM(caPEM)
 	if !ok {
 		t.Fatalf("failed to create certPool")

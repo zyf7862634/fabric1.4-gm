@@ -27,8 +27,8 @@ import (
 	"github.com/hyperledger/fabric/protos/orderer/etcdraft"
 	"github.com/hyperledger/fabric/protos/utils"
 	"github.com/pkg/errors"
-	"github.com/hyperledger/fabric/vendor000/go.etcd.io/etcd/raft"
-	"github.com/hyperledger/fabric/vendor000/go.etcd.io/etcd/raft/raftpb"
+	"go.etcd.io/etcd/raft"
+	"go.etcd.io/etcd/raft/raftpb"
 )
 
 // MembershipChanges keeps information about membership

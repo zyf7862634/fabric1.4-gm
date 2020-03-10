@@ -12,7 +12,7 @@ import (
 	"os"
 	"strings"
 
-	logging "github.com/op/go-logging"
+	"github.com/op/go-logging"
 )
 
 // These interfaces are used by the chaincode shim at the 1.2 version.

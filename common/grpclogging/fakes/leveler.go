@@ -6,7 +6,7 @@ import (
 	sync "sync"
 
 	grpclogging "github.com/hyperledger/fabric/common/grpclogging"
-	zapcore "github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
+	zapcore "go.uber.org/zap/zapcore"
 )
 
 type Leveler struct {

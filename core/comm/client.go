@@ -8,13 +8,11 @@ package comm
 
 import (
 	"context"
-	"crypto/x509"
 	"github.com/tjfoc/gmsm/sm2"
 	tls "github.com/tjfoc/gmtls"
 	"time"
 
 	"github.com/pkg/errors"
-	credentials "github.com/tjfoc/gmtls/gmcredentials"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/keepalive"
 )

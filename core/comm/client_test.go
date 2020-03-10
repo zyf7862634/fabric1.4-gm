@@ -9,9 +9,10 @@ package comm_test
 import (
 	"bytes"
 	"context"
-	"crypto/tls"
-	"crypto/x509"
 	"fmt"
+	"github.com/tjfoc/gmsm/sm2"
+	tls "github.com/tjfoc/gmtls"
+	"github.com/tjfoc/gmtls/gmcredentials"
 	"io/ioutil"
 	"net"
 	"path/filepath"
@@ -29,7 +30,6 @@ import (
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/connectivity"
-	"google.golang.org/grpc/credentials"
 )
 
 const testTimeout = 1 * time.Second // conservative
@@ -160,7 +160,7 @@ func TestNewConnection(t *testing.T) {
 	t.Parallel()
 	testCerts := loadCerts(t)
 
-	certPool := x509.NewCertPool()
+	certPool := sm2.NewCertPool()
 	ok := certPool.AppendCertsFromPEM(testCerts.caPEM)
 	if !ok {
 		t.Fatal("failed to create test root cert pool")
@@ -286,7 +286,7 @@ func TestNewConnection(t *testing.T) {
 			name: "server TLS pinning success",
 			config: comm.ClientConfig{
 				SecOpts: &comm.SecureOptions{
-					VerifyCertificate: func(rawCerts [][]byte, verifiedChains [][]*x509.Certificate) error {
+					VerifyCertificate: func(rawCerts [][]byte, verifiedChains [][]*sm2.Certificate) error {
 						if bytes.Equal(rawCerts[0], testCerts.serverCert.Certificate[0]) {
 							return nil
 						}
@@ -309,7 +309,7 @@ func TestNewConnection(t *testing.T) {
 			name: "server TLS pinning failure",
 			config: comm.ClientConfig{
 				SecOpts: &comm.SecureOptions{
-					VerifyCertificate: func(rawCerts [][]byte, verifiedChains [][]*x509.Certificate) error {
+					VerifyCertificate: func(rawCerts [][]byte, verifiedChains [][]*sm2.Certificate) error {
 						return errors.New("TLS certificate mismatch")
 					},
 					Certificate:       testCerts.certPEM,
@@ -339,7 +339,7 @@ func TestNewConnection(t *testing.T) {
 			defer lis.Close()
 			serverOpts := []grpc.ServerOption{}
 			if test.serverTLS != nil {
-				serverOpts = append(serverOpts, grpc.Creds(credentials.NewTLS(test.serverTLS)))
+				serverOpts = append(serverOpts, grpc.Creds(gmcredentials.NewTLS(test.serverTLS)))
 			}
 			srv := grpc.NewServer(serverOpts...)
 			defer srv.Stop()
@@ -389,7 +389,7 @@ func TestSetServerRootCAs(t *testing.T) {
 	t.Logf("server listening on [%s]", lis.Addr().String())
 	t.Logf("client will use [%s]", address)
 	defer lis.Close()
-	srv := grpc.NewServer(grpc.Creds(credentials.NewTLS(&tls.Config{
+	srv := grpc.NewServer(grpc.Creds(gmcredentials.NewTLS(&tls.Config{
 		Certificates: []tls.Certificate{testCerts.serverCert},
 	})))
 	defer srv.Stop()
@@ -614,7 +614,7 @@ func TestDynamicClientTLSLoading(t *testing.T) {
 	dynamicRootCerts.Store(ca1.CertBytes())
 
 	conn, err := client.NewConnection(server.Address(), "", func(tlsConfig *tls.Config) {
-		tlsConfig.RootCAs = x509.NewCertPool()
+		tlsConfig.RootCAs = sm2.NewCertPool()
 		tlsConfig.RootCAs.AppendCertsFromPEM(dynamicRootCerts.Load().([]byte))
 	})
 	assert.NoError(t, err)

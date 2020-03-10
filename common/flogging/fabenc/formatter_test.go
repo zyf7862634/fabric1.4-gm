@@ -17,8 +17,8 @@ import (
 
 	"github.com/hyperledger/fabric/common/flogging/fabenc"
 	"github.com/stretchr/testify/assert"
-	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap"
-	"github.com/hyperledger/fabric/vendor000/go.uber.org/zap/zapcore"
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
 
 func TestParseFormat(t *testing.T) {

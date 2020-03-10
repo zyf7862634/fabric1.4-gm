@@ -7,11 +7,10 @@ SPDX-License-Identifier: Apache-2.0
 package comm
 
 import (
-	tls "github.com/tjfoc/gmtls"
-	"crypto/x509"
 	"errors"
 	"fmt"
 	"github.com/tjfoc/gmsm/sm2"
+	tls "github.com/tjfoc/gmtls"
 	"net"
 	"sync"
 	"sync/atomic"
