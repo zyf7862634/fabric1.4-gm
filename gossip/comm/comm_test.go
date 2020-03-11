@@ -13,6 +13,7 @@ import (
 	"crypto/sha256"
 	"fmt"
 	tls "github.com/tjfoc/gmtls"
+	"github.com/tjfoc/gmtls/gmcredentials"
 	"math/rand"
 	"net"
 	"strconv"
@@ -34,7 +35,6 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials"
 )
 
 func init() {
@@ -183,7 +183,7 @@ func handshaker(port int, endpoint string, comm Comm, t *testing.T, connMutator 
 	if connType == mutualTLS {
 		tlsCfg.Certificates = []tls.Certificate{cert}
 	}
-	ta := credentials.NewTLS(tlsCfg)
+	ta := gmcredentials.NewTLS(tlsCfg)
 	secureOpts := grpc.WithTransportCredentials(ta)
 	if connType == none {
 		secureOpts = grpc.WithInsecure()
@@ -577,7 +577,7 @@ func TestCloseConn(t *testing.T) {
 		InsecureSkipVerify: true,
 		Certificates:       []tls.Certificate{cert},
 	}
-	ta := credentials.NewTLS(tlsCfg)
+	ta := gmcredentials.NewTLS(tlsCfg)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()

@@ -47,7 +47,7 @@ func GenerateCertificatesOrPanic() tls.Certificate {
 		panic(err)
 	}
 	//privBytes, err := x509.MarshalECPrivateKey(privateKey)
-	privBytes, err := sm2.MarshalECPrivateKey(privateKey)
+	privBytes, err := sm2.MarshalSm2UnecryptedPrivateKey(privateKey)
 	if err != nil {
 		panic(err)
 	}
