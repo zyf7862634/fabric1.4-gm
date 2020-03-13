@@ -8,9 +8,9 @@ package msp
 
 import (
 	"bytes"
-	"crypto/x509"
 	"crypto/x509/pkix"
 	"encoding/asn1"
+	x509 "github.com/tjfoc/gmsm/sm2"
 	"math/big"
 	"reflect"
 	"time"
