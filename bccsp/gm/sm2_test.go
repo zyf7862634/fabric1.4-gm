@@ -19,7 +19,6 @@ package gm
 import (
 	"crypto/elliptic"
 	"crypto/sha256"
-	"crypto/x509"
 	"github.com/tjfoc/gmsm/sm2"
 	"math/big"
 	"testing"
@@ -173,7 +172,7 @@ func TestSm2PublicKey(t *testing.T) {
 
 	bytes, err := k.Bytes()
 	//assert.NoError(t, err)
-	bytes2, err := x509.MarshalPKIXPublicKey(k.pubKey)
+	bytes2, err := sm2.MarshalPKIXPublicKey(k.pubKey)
 	assert.Equal(t, bytes2, bytes, "bytes are not computed in the right way.")
 
 	invalidCurve := &elliptic.CurveParams{Name: "P-Invalid"}

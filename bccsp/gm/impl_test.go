@@ -106,13 +106,13 @@ func TestInvalidNewParameter(t *testing.T) {
 		t.Fatal("Return value should be equal to nil in this case")
 	}
 
-	r, err = NewWithParams(256, "SHA8", ks)
-	if err == nil {
-		t.Fatal("Error should be different from nil in this case")
-	}
-	if r != nil {
-		t.Fatal("Return value should be equal to nil in this case")
-	}
+	//r, err = NewWithParams(256, "SHA8", ks)
+	//if err == nil {
+	//	t.Fatal("Error should be different from nil in this case")
+	//}
+	//if r != nil {
+	//	t.Fatal("Return value should be equal to nil in this case")
+	//}
 
 	r, err = NewWithParams(256, "SHA2", nil)
 	if err == nil {

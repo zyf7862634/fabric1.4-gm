@@ -143,7 +143,7 @@ func SM4Encrypt(key, src []byte) ([]byte, error) {
 
 	origData := pkcs5Padding(src, block.BlockSize())
 	dst := make([]byte, len(origData))
-	blockMode := cipher.NewCBCEncrypter(block, key[:block.BlockSize()])
+	blockMode := cipher.NewCBCEncrypter(block, make([]byte, sm4.BlockSize))
 	blockMode.CryptBlocks(dst, origData)
 
 	return dst, nil

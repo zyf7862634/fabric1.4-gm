@@ -17,8 +17,8 @@ package gm
 
 import (
 	"bytes"
-	"crypto/aes"
 	"crypto/rand"
+	aes "github.com/tjfoc/gmsm/sm4"
 	"math/big"
 	"testing"
 
@@ -474,7 +474,7 @@ func TestCBCPKCS7Encrypt_CorrectCiphertextLengthCheck(t *testing.T) {
 func TestAESRelatedUtilFunctions(t *testing.T) {
 	t.Parallel()
 
-	key, err := GetRandomBytes(32)
+	key, err := GetRandomBytes(16)
 	if err != nil {
 		t.Fatalf("Failed generating AES key [%s]", err)
 	}

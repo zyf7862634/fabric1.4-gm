@@ -42,7 +42,7 @@ func TestSm2(t *testing.T) {
 		fmt.Printf("Error: failed to encrypt %s: %v\n", msg, err)
 		return
 	}
-	// fmt.Printf("Cipher text = %v\n", d0)
+	fmt.Printf("Cipher text = %v\n", d0)
 	d1, err := priv.Decrypt(d0)
 	if err != nil {
 		fmt.Printf("Error: failed to decrypt: %v\n", err)
@@ -110,7 +110,7 @@ func TestSm2(t *testing.T) {
 	}
 	err = req.CheckSignature()
 	if err != nil {
-		log.Fatalf("Request CheckSignature error:%v", err)
+		log.Fatal(err)
 	} else {
 		fmt.Printf("CheckSignature ok\n")
 	}
@@ -199,22 +199,21 @@ func TestSm2(t *testing.T) {
 
 func BenchmarkSM2(t *testing.B) {
 	t.ReportAllocs()
-	msg := []byte("test")
-	priv, err := GenerateKey() // 生成密钥对
-	if err != nil {
-		log.Fatal(err)
-	}
-	t.ResetTimer()
 	for i := 0; i < t.N; i++ {
+		priv, err := GenerateKey() // 生成密钥对
+		if err != nil {
+			log.Fatal(err)
+		}
+		msg := []byte("test")
 		sign, err := priv.Sign(rand.Reader, msg, nil) // 签名
 		if err != nil {
 			log.Fatal(err)
 		}
-		priv.Verify(msg, sign) // 密钥验证
-		// if ok != true {
-		// 	fmt.Printf("Verify error\n")
-		// } else {
-		// 	fmt.Printf("Verify ok\n")
-		// }
+		ok := priv.Verify(msg, sign) // 密钥验证
+		if ok != true {
+			fmt.Printf("Verify error\n")
+		} else {
+			fmt.Printf("Verify ok\n")
+		}
 	}
 }

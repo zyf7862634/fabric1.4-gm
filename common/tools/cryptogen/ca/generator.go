@@ -295,7 +295,7 @@ func LoadCertificateSM2(certPath string) (*sm2.Certificate, error) {
 				return err
 			}
 			block, _ := pem.Decode(rawCert)
-			cert, err = utils.DERTToSM2Certificate(block.Bytes)
+			cert, err = utils.DERToSM2Certificate(block.Bytes)
 		}
 		return nil
 	}
