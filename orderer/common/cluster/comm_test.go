@@ -9,8 +9,8 @@ package cluster_test
 import (
 	"context"
 	"crypto/rand"
-	"crypto/x509"
 	"fmt"
+	x509 "github.com/tjfoc/gmsm/sm2"
 	"net"
 	"strings"
 	"sync"

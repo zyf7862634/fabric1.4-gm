@@ -8,10 +8,10 @@ package cluster
 
 import (
 	"bytes"
-	"crypto/tls"
-	"crypto/x509"
 	"encoding/hex"
 	"encoding/pem"
+	x509 "github.com/tjfoc/gmsm/sm2"
+	tls "github.com/tjfoc/gmtls"
 	"sync"
 	"sync/atomic"
 	"time"

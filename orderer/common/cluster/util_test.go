@@ -7,9 +7,9 @@ SPDX-License-Identifier: Apache-2.0
 package cluster_test
 
 import (
-	"crypto/x509"
 	"encoding/pem"
 	"errors"
+	x509 "github.com/tjfoc/gmsm/sm2"
 	"io/ioutil"
 	"strings"
 	"sync"

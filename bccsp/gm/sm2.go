@@ -16,7 +16,6 @@ limitations under the License.
 package gm
 
 import (
-	"crypto/ecdsa"
 	"crypto/elliptic"
 	"crypto/rand"
 	"encoding/asn1"
@@ -143,7 +142,7 @@ func UnmarshalSM2Signature(raw []byte) (*big.Int, *big.Int, error) {
 	return sig.R, sig.S, nil
 }
 
-func SignatureToLowS(k *ecdsa.PublicKey, signature []byte) ([]byte, error) {
+func SignatureToLowS(k *sm2.PublicKey, signature []byte) ([]byte, error) {
 	r, s, err := UnmarshalSM2Signature(signature)
 	if err != nil {
 		return nil, err
@@ -162,7 +161,7 @@ func SignatureToLowS(k *ecdsa.PublicKey, signature []byte) ([]byte, error) {
 }
 
 // IsLow checks that s is a low-S
-func IsLowS(k *ecdsa.PublicKey, s *big.Int) (bool, error) {
+func IsLowS(k *sm2.PublicKey, s *big.Int) (bool, error) {
 	halfOrder, ok := curveHalfOrders[k.Curve]
 	if !ok {
 		return false, fmt.Errorf("curve not recognized [%s]", k.Curve)
@@ -172,7 +171,7 @@ func IsLowS(k *ecdsa.PublicKey, s *big.Int) (bool, error) {
 
 }
 
-func ToLowS(k *ecdsa.PublicKey, s *big.Int) (*big.Int, bool, error) {
+func ToLowS(k *sm2.PublicKey, s *big.Int) (*big.Int, bool, error) {
 	lowS, err := IsLowS(k, s)
 	if err != nil {
 		return nil, false, err

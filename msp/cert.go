@@ -18,16 +18,15 @@ package msp
 
 import (
 	"bytes"
-	"crypto/ecdsa"
 	"crypto/x509/pkix"
 	"encoding/asn1"
 	"encoding/pem"
 	"fmt"
+	"github.com/hyperledger/fabric/bccsp/gm"
 	"github.com/tjfoc/gmsm/sm2"
 	"math/big"
 	"time"
 
-	"github.com/hyperledger/fabric/bccsp/utils"
 	"github.com/pkg/errors"
 )
 
@@ -85,7 +84,7 @@ func sanitizeECDSASignedCert(cert *sm2.Certificate, parentCert *sm2.Certificate)
 		return nil, errors.New("parent certificate must be different from nil")
 	}
 
-	expectedSig, err := utils.SignatureToLowS(parentCert.PublicKey.(*ecdsa.PublicKey), cert.Signature)
+	expectedSig, err := gm.SignatureToLowS(parentCert.PublicKey.(*sm2.PublicKey), cert.Signature)
 	if err != nil {
 		return nil, err
 	}
