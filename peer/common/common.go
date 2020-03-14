@@ -8,8 +8,8 @@ package common
 
 import (
 	"context"
-	"crypto/tls"
 	"fmt"
+	tls "github.com/tjfoc/gmtls"
 	"io/ioutil"
 	"os"
 	"runtime"
@@ -103,7 +103,7 @@ func InitConfig(cmdRoot string) error {
 	}
 
 	err = viper.ReadInConfig() // Find and read the config file
-	if err != nil {            // Handle errors reading the config file
+	if err != nil { // Handle errors reading the config file
 		// The version of Viper we use claims the config type isn't supported when in fact the file hasn't been found
 		// Display a more helpful message to avoid confusing the user.
 		if strings.Contains(fmt.Sprint(err), "Unsupported Config Type") {

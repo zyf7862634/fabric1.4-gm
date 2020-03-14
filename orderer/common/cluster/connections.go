@@ -8,7 +8,7 @@ package cluster
 
 import (
 	"bytes"
-	"crypto/x509"
+	x509 "github.com/tjfoc/gmsm/sm2"
 	"sync"
 	"sync/atomic"
 
